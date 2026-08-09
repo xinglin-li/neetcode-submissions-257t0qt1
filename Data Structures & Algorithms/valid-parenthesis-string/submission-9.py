@@ -1,0 +1,20 @@
+class Solution:
+    def checkValidString(self, s: str) -> bool:
+        left_min = 0 # 最少可能有多少未匹配的 (
+        left_max = 0 # 最多可能有多少未匹配的 (
+
+        for c in s:
+            if c == "(":
+                left_min += 1
+                left_max += 1
+            elif c == ")":
+                left_min -= 1
+                left_max -= 1
+            else:
+                left_min -= 1
+                left_max += 1
+            if left_max < 0:
+                return False
+            left_min = max(left_min, 0)
+        
+        return left_min == 0
