@@ -1,0 +1,18 @@
+class Solution:
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        parent = list(range(n))
+
+        def find(x):
+            if parent[x] != x:
+                parent[x] = find(parent[x])
+            return parent[x]
+        
+        count = n
+
+        for u, v in edges:
+            root_u, root_v = find(u), find(v)
+            if root_u != root_v:
+                parent[root_u] = root_v
+                count -= 1
+        
+        return count
